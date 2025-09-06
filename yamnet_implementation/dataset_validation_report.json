@@ -1,0 +1,41 @@
+{
+  "dataset_path": "..",
+  "structure_valid": true,
+  "total_files": 132,
+  "valid_files": 132,
+  "invalid_files": 0,
+  "class_distribution": {
+    "slow": 36,
+    "medium": 36,
+    "fast": 36,
+    "disturbance": 24
+  },
+  "format_distribution": {
+    ".wav": 132
+  },
+  "duration_stats": {
+    "mean": 3.4375959595959595,
+    "std": 1.8656233985009354,
+    "min": 2.376,
+    "max": 16.192,
+    "median": 3.0
+  },
+  "sample_rate_stats": {
+    "unique_rates": [
+      22050,
+      48000
+    ],
+    "most_common": 22050,
+    "distribution": {
+      "22050": 111,
+      "48000": 21
+    }
+  },
+  "issues": [
+    "Unexpected directories found: ['yamnet_implementation', 'venv', '_archive']"
+  ],
+  "recommendations": [
+    "Consider removing or renaming: ['yamnet_implementation', 'venv', '_archive']",
+    "Multiple sample rates detected: [22050, 48000]. YAMNet will automatically resample to 16kHz, but consistent rates are preferred."
+  ]
+}

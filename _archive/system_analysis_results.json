@@ -1,0 +1,141 @@
+{
+  "readiness_score": 7,
+  "max_score": 10,
+  "test_results": [
+    {
+      "file": "disturbance_medium_20250830_222915.wav",
+      "true_class": "disturbance",
+      "predicted_class": "disturbance",
+      "confidence": 0.514,
+      "correct": true
+    },
+    {
+      "file": "Cough.wav",
+      "true_class": "disturbance",
+      "predicted_class": "fast",
+      "confidence": 0.396,
+      "correct": false
+    },
+    {
+      "file": "Claps.wav",
+      "true_class": "disturbance",
+      "predicted_class": "fast",
+      "confidence": 0.367,
+      "correct": false
+    },
+    {
+      "file": "Snapping.wav",
+      "true_class": "disturbance",
+      "predicted_class": "slow",
+      "confidence": 0.565,
+      "correct": false
+    },
+    {
+      "file": "Fhmm_slow.wav",
+      "true_class": "slow",
+      "predicted_class": "fast",
+      "confidence": 0.413,
+      "correct": false
+    },
+    {
+      "file": "Fsoo_slow.wav",
+      "true_class": "slow",
+      "predicted_class": "fast",
+      "confidence": 0.43,
+      "correct": false
+    },
+    {
+      "file": "Fhumm_slow.wav",
+      "true_class": "slow",
+      "predicted_class": "fast",
+      "confidence": 0.435,
+      "correct": false
+    },
+    {
+      "file": "Hum_slow.wav",
+      "true_class": "slow",
+      "predicted_class": "fast",
+      "confidence": 0.427,
+      "correct": false
+    },
+    {
+      "file": "Hmm_slow.wav",
+      "true_class": "slow",
+      "predicted_class": "fast",
+      "confidence": 0.423,
+      "correct": false
+    },
+    {
+      "file": "Fhum_medium.wav",
+      "true_class": "medium",
+      "predicted_class": "fast",
+      "confidence": 0.434,
+      "correct": false
+    },
+    {
+      "file": "Hum_mid.wav",
+      "true_class": "medium",
+      "predicted_class": "fast",
+      "confidence": 0.427,
+      "correct": false
+    },
+    {
+      "file": "Fhmm_medium.wav",
+      "true_class": "medium",
+      "predicted_class": "fast",
+      "confidence": 0.422,
+      "correct": false
+    },
+    {
+      "file": "Fsoo_medium.wav",
+      "true_class": "medium",
+      "predicted_class": "fast",
+      "confidence": 0.41,
+      "correct": false
+    },
+    {
+      "file": "Soo_mid.wav",
+      "true_class": "medium",
+      "predicted_class": "fast",
+      "confidence": 0.423,
+      "correct": false
+    },
+    {
+      "file": "Hmm fast.wav",
+      "true_class": "fast",
+      "predicted_class": "fast",
+      "confidence": 0.417,
+      "correct": true
+    },
+    {
+      "file": "Soo_fast.wav",
+      "true_class": "fast",
+      "predicted_class": "fast",
+      "confidence": 0.425,
+      "correct": true
+    },
+    {
+      "file": "Hum_fast.wav",
+      "true_class": "fast",
+      "predicted_class": "fast",
+      "confidence": 0.433,
+      "correct": true
+    },
+    {
+      "file": "Fhum_fast.wav",
+      "true_class": "fast",
+      "predicted_class": "fast",
+      "confidence": 0.424,
+      "correct": true
+    },
+    {
+      "file": "Fsoo_fast.wav",
+      "true_class": "fast",
+      "predicted_class": "fast",
+      "confidence": 0.426,
+      "correct": true
+    }
+  ],
+  "overall_accuracy": 0.3157894736842105,
+  "dominant_percentage": 89.47368421052632
+}

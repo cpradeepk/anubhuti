@@ -1,0 +1,134 @@
+{
+  "model_info": {
+    "model_type": "YAMNet_Classifier",
+    "architecture": "YAMNet + Dense Classifier",
+    "yamnet_url": "https://tfhub.dev/google/yamnet/1",
+    "input_shape": [
+      1024
+    ],
+    "output_shape": [
+      4
+    ],
+    "total_parameters": 657156,
+    "training_date": "2025-08-31T22:30:39.718197"
+  },
+  "dataset_info": {
+    "total_files": 132,
+    "successful_files": 132,
+    "failed_files": 0,
+    "embedding_shape": [
+      132,
+      1024
+    ],
+    "class_mapping": {
+      "slow": 0,
+      "medium": 1,
+      "fast": 2,
+      "disturbance": 3
+    },
+    "class_names": [
+      "slow",
+      "medium",
+      "fast",
+      "disturbance"
+    ],
+    "failed_file_list": []
+  },
+  "training_config": {
+    "batch_size": 32,
+    "max_epochs": 50,
+    "optimizer": "Adam",
+    "learning_rate": 0.001,
+    "loss_function": "categorical_crossentropy",
+    "validation_split": 0.2
+  },
+  "performance_metrics": {
+    "test_loss": 0.20344452559947968,
+    "test_accuracy": 0.8999999761581421,
+    "test_precision": 0.9473684430122375,
+    "test_recall": 0.8999999761581421,
+    "classification_report": {
+      "slow": {
+        "precision": 0.8,
+        "recall": 0.8,
+        "f1-score": 0.8,
+        "support": 5.0
+      },
+      "medium": {
+        "precision": 1.0,
+        "recall": 0.8,
+        "f1-score": 0.8888888888888888,
+        "support": 5.0
+      },
+      "fast": {
+        "precision": 0.8571428571428571,
+        "recall": 1.0,
+        "f1-score": 0.9230769230769231,
+        "support": 6.0
+      },
+      "disturbance": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1-score": 1.0,
+        "support": 4.0
+      },
+      "accuracy": 0.9,
+      "macro avg": {
+        "precision": 0.9142857142857143,
+        "recall": 0.9,
+        "f1-score": 0.902991452991453,
+        "support": 20.0
+      },
+      "weighted avg": {
+        "precision": 0.9071428571428571,
+        "recall": 0.9,
+        "f1-score": 0.8991452991452992,
+        "support": 20.0
+      }
+    },
+    "confusion_matrix": [
+      [
+        4,
+        0,
+        1,
+        0
+      ],
+      [
+        1,
+        4,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        6,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        4
+      ]
+    ],
+    "class_names": [
+      "slow",
+      "medium",
+      "fast",
+      "disturbance"
+    ]
+  },
+  "class_mapping": {
+    "slow": 0,
+    "medium": 1,
+    "fast": 2,
+    "disturbance": 3
+  },
+  "arduino_mapping": {
+    "slow": 1,
+    "medium": 2,
+    "fast": 3,
+    "disturbance": 0
+  }
+}

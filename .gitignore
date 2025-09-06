@@ -1,0 +1,171 @@
+# YAMNet Speech Classification Pipeline - Git Ignore File
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual Environment
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+yamnet_env/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# pyenv
+.python-version
+
+# pipenv
+Pipfile.lock
+
+# PEP 582
+__pypackages__/
+
+# Celery
+celerybeat-schedule
+celerybeat.pid
+
+# SageMath parsed files
+*.sage.py
+
+# Environments
+.env
+.venv
+
+# Spyder project settings
+.spyderproject
+.spyproject
+
+# Rope project settings
+.ropeproject
+
+# mkdocs documentation
+/site
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pyre type checker
+.pyre/
+
+# Audio files (temporary/test files)
+*.wav.tmp
+test_*.wav
+temp_*.wav
+recorded_*.wav
+
+# Model training temporary files
+*.h5.tmp
+*.json.tmp
+training_temp/
+checkpoints/
+
+# System files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Log files
+*.log
+logs/
+*.out
+
+# Performance monitoring files
+performance_metrics.json
+system_metrics.json
+
+# Temporary deployment files
+deployment_temp/
+*.pid
+*.lock
+
+# Audio processing temporary files
+audio_chunks/
+processed_audio/
+
+# Backup files
+*.backup
+*.bak
+*_backup.*
+
+# Test output files
+test_output/
+test_results/
+coverage_reports/
+
+# Documentation build files
+docs/_build/
+docs/build/
+
+# Keep important model files but ignore temporary ones
+!yamnet_implementation/yamnet_models/yamnet_classifier.h5
+!yamnet_implementation/yamnet_models/yamnet_model_metadata.json
+!yamnet_implementation/yamnet_models/confusion_matrix.png
+!yamnet_implementation/yamnet_models/training_history.png
+
+# Ignore large dataset files in development but keep structure
+# Uncomment these if you want to exclude audio dataset from git
+# slow/*.wav
+# medium/*.wav
+# fast/*.wav
+# disturbance/*.wav
+# continue/*.wav
+
+# Keep README files in dataset directories
+!slow/README.md
+!medium/README.md
+!fast/README.md
+!disturbance/README.md
+!continue/README.md
+
+# Raspberry Pi specific files
+*.img
+*.iso
+ssh_keys/
+pi_config/
+
+# Arduino IDE files
+*.ino.bak
+libraries/
+hardware/
+
+# Deployment specific
+deployment_logs/
+rollback_*/

@@ -1,0 +1,26 @@
+{
+  "model_type": "DS_CNN_Audio_Classifier",
+  "architecture": "Depthwise_Separable_CNN",
+  "input_shape": [
+    13,
+    130,
+    1
+  ],
+  "num_classes": 4,
+  "class_mapping": [
+    "disturbance",
+    "slow",
+    "medium",
+    "fast"
+  ],
+  "sample_rate": 22050,
+  "duration": 3.0,
+  "n_mfcc": 13,
+  "n_frames": 130,
+  "overall_accuracy": 0.3181818181818182,
+  "cv_accuracy_mean": 0.2738095323244731,
+  "cv_accuracy_std": 0.016835881763515206,
+  "dominant_class_percentage": 95.45454545454545,
+  "total_parameters": 41700,
+  "optimized_for": "raspberry_pi_deployment"
+}
