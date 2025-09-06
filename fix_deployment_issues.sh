@@ -52,31 +52,51 @@ check_deployment() {
 # Fix package compatibility issues
 fix_package_compatibility() {
     log "🔧 Fixing package compatibility issues..."
-    
+
     cd "$INSTALL_DIR/yamnet_implementation"
     source yamnet_env/bin/activate || error "Failed to activate virtual environment"
-    
+
+    # Create constraints file to lock versions
+    log "📋 Creating version constraints file..."
+    cat > constraints.txt << EOF
+numpy==1.24.3
+scipy>=1.10.0,<1.12.0
+tensorflow==2.13.0
+tensorflow-hub==0.14.0
+keras==2.13.1
+librosa>=0.10.0,<0.11.0
+soundfile>=0.12.0,<0.13.0
+matplotlib>=3.7.0,<3.8.0
+seaborn>=0.12.0,<0.13.0
+EOF
+
     # Remove problematic packages
     log "📦 Removing incompatible packages..."
-    pip uninstall numpy scipy tensorflow keras -y || warning "Package uninstall failed"
-    
-    # Install compatible versions in correct order
-    log "📦 Installing compatible NumPy (≥1.25.2 for SciPy, <2.0 for TensorFlow)..."
-    pip install "numpy>=1.25.2,<2.0" --no-cache-dir || error "Failed to install NumPy"
-    
-    log "📦 Installing compatible SciPy..."
-    pip install "scipy>=1.10.0" --no-cache-dir || error "Failed to install SciPy"
-    
-    log "📦 Installing TensorFlow 2.13.0..."
-    pip install tensorflow==2.13.0 --no-cache-dir || error "Failed to install TensorFlow"
-    
-    log "📦 Installing TensorFlow Hub..."
-    pip install tensorflow-hub==0.14.0 --no-cache-dir || error "Failed to install TensorFlow Hub"
-    
-    # Install other required packages
-    log "📦 Installing other dependencies..."
-    pip install librosa soundfile matplotlib seaborn pyaudio pydub --no-cache-dir || warning "Some dependencies failed"
-    
+    pip uninstall numpy scipy tensorflow keras librosa -y || warning "Package uninstall failed"
+
+    # Install packages with strict version constraints
+    log "📦 Installing NumPy 1.24.3 (TensorFlow compatible)..."
+    pip install --constraint constraints.txt --force-reinstall --no-deps numpy==1.24.3 || error "Failed to install NumPy"
+
+    log "📦 Installing SciPy with NumPy constraint..."
+    pip install --constraint constraints.txt scipy || error "Failed to install SciPy"
+
+    log "📦 Installing TensorFlow 2.13.0 with constraints..."
+    pip install --constraint constraints.txt tensorflow==2.13.0 || error "Failed to install TensorFlow"
+
+    log "📦 Installing TensorFlow Hub with constraints..."
+    pip install --constraint constraints.txt tensorflow-hub==0.14.0 || error "Failed to install TensorFlow Hub"
+
+    # Install other required packages with constraints
+    log "📦 Installing audio processing libraries with constraints..."
+    pip install --constraint constraints.txt librosa soundfile || warning "Audio libraries failed"
+
+    log "📦 Installing visualization libraries with constraints..."
+    pip install --constraint constraints.txt matplotlib seaborn || warning "Visualization libraries failed"
+
+    log "📦 Installing system libraries..."
+    pip install pyaudio pydub || warning "System libraries failed"
+
     log "✅ Package compatibility fix completed"
 }
 
