@@ -7,8 +7,8 @@ tensorflow_hub>=0.12.0
 tensorflow_io>=0.24.0
 scikit-learn>=1.1.0
 
-# Numerical computing
-numpy>=1.21.0
+# Numerical computing (NumPy 2.x compatibility fix for TensorFlow 2.13)
+numpy>=1.21.0,<2.0
 
 # Audio processing
 librosa>=0.9.0

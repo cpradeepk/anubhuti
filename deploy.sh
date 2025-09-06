@@ -190,17 +190,20 @@ install_dependencies() {
     cd "$INSTALL_DIR/yamnet_implementation"
     source yamnet_env/bin/activate
     
+    # Install NumPy first to ensure compatibility
+    info "Installing compatible NumPy version..."
+    pip install "numpy<2.0,>=1.24.0" --no-cache-dir || error "Failed to install NumPy"
+
     # Install TensorFlow (this takes the longest)
     info "Installing TensorFlow (this may take 10-15 minutes)..."
     show_progress 5 "Preparing TensorFlow installation"
     pip install tensorflow==2.13.0 --no-cache-dir || error "Failed to install TensorFlow"
-    
+
     # Install other dependencies
     local dependencies=(
         "tensorflow-hub==0.14.0"
         "librosa==0.10.1"
         "soundfile==0.12.1"
-        "numpy==1.24.3"
         "scikit-learn==1.3.0"
         "matplotlib==3.7.2"
         "seaborn==0.12.2"
@@ -214,6 +217,7 @@ install_dependencies() {
     done
     
     # Verify installations
+    python -c "import numpy; print(f'NumPy: {numpy.__version__}')" || error "NumPy verification failed"
     python -c "import tensorflow as tf; print(f'TensorFlow: {tf.__version__}')" || error "TensorFlow verification failed"
     python -c "import tensorflow_hub as hub; print('TensorFlow Hub: OK')" || error "TensorFlow Hub verification failed"
     python -c "import librosa; print('Librosa: OK')" || error "Librosa verification failed"

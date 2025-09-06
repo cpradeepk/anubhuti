@@ -262,7 +262,22 @@ ps aux | grep yamnet
 
 ### **Common Issues and Solutions**
 
-#### **1. Deployment Fails During TensorFlow Installation**
+#### **1. NumPy 2.x Compatibility Issue (Most Common)**
+```bash
+# Quick fix for NumPy 2.x compatibility with TensorFlow
+cd ~/anubhuti
+./fix_numpy_compatibility.sh
+
+# Or manual fix:
+cd ~/anubhuti/yamnet_implementation/
+source yamnet_env/bin/activate
+pip uninstall numpy -y
+pip install "numpy<2.0" --no-cache-dir
+pip uninstall tensorflow -y
+pip install tensorflow==2.13.0 --no-cache-dir
+```
+
+#### **2. Deployment Fails During TensorFlow Installation**
 ```bash
 # Increase swap space
 sudo dphys-swapfile swapoff
@@ -275,7 +290,7 @@ sudo dphys-swapfile swapon
 ./deploy.sh
 ```
 
-#### **2. Git Clone Fails**
+#### **3. Git Clone Fails**
 ```bash
 # Check internet connection
 ping -c 3 github.com
@@ -287,7 +302,7 @@ echo "nameserver 8.8.8.8" | sudo tee /etc/resolv.conf
 ./deploy.sh
 ```
 
-#### **3. Audio System Issues**
+#### **4. Audio System Issues**
 ```bash
 # Check audio devices
 arecord -l
@@ -300,7 +315,7 @@ pulseaudio --kill && pulseaudio --start
 arecord -d 3 test.wav && aplay test.wav
 ```
 
-#### **4. Model Loading Errors**
+#### **5. Model Loading Errors**
 ```bash
 # Check model file integrity
 ls -la ~/anubhuti/yamnet_implementation/yamnet_models/yamnet_classifier.h5
@@ -311,7 +326,7 @@ rm -rf anubhuti
 ./deploy.sh
 ```
 
-#### **5. Update Failures**
+#### **6. Update Failures**
 ```bash
 # Rollback to previous version
 cd ~/anubhuti
