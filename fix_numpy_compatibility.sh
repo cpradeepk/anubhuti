@@ -62,19 +62,22 @@ fix_numpy_compatibility() {
     local current_numpy=$(python -c "import numpy; print(numpy.__version__)" 2>/dev/null || echo "not installed")
     info "Current NumPy version: $current_numpy"
     
-    # Uninstall incompatible NumPy
-    log "📦 Removing incompatible NumPy version..."
-    pip uninstall numpy -y || warning "NumPy uninstall failed (may not be installed)"
+    # Uninstall incompatible packages
+    log "📦 Removing incompatible NumPy and SciPy versions..."
+    pip uninstall numpy scipy -y || warning "Package uninstall failed (may not be installed)"
+
+    # Install compatible versions that work together
+    log "📦 Installing compatible NumPy version (≥1.25.2 for SciPy, <2.0 for TensorFlow)..."
+    pip install "numpy>=1.25.2,<2.0" --no-cache-dir || error "Failed to install compatible NumPy"
+
+    log "📦 Installing compatible SciPy version..."
+    pip install "scipy>=1.10.0" --no-cache-dir || error "Failed to install compatible SciPy"
     
-    # Install compatible NumPy version
-    log "📦 Installing compatible NumPy version..."
-    pip install "numpy>=1.24.0,<2.0" --no-cache-dir || error "Failed to install compatible NumPy"
-    
-    # Reinstall TensorFlow to ensure compatibility
-    log "📦 Reinstalling TensorFlow for compatibility..."
-    pip uninstall tensorflow -y || warning "TensorFlow uninstall failed"
+    # Reinstall TensorFlow and Keras to ensure compatibility
+    log "📦 Reinstalling TensorFlow and Keras for compatibility..."
+    pip uninstall tensorflow keras -y || warning "TensorFlow/Keras uninstall failed"
     pip install tensorflow==2.13.0 --no-cache-dir || error "Failed to reinstall TensorFlow"
-    
+
     # Reinstall TensorFlow Hub
     log "📦 Reinstalling TensorFlow Hub..."
     pip install tensorflow-hub==0.14.0 --no-cache-dir || error "Failed to reinstall TensorFlow Hub"
@@ -114,10 +117,16 @@ print('✅ TensorFlow Hub imports successfully')
     if [[ -f "yamnet_models/yamnet_classifier.h5" ]]; then
         python -c "
 import tensorflow as tf
-model = tf.keras.models.load_model('yamnet_models/yamnet_classifier.h5')
-print('✅ YAMNet model loads successfully')
-print(f'✅ Model parameters: {model.count_params():,}')
-" || error "❌ Model loading test failed"
+try:
+    model = tf.keras.models.load_model('yamnet_models/yamnet_classifier.h5')
+    print('✅ YAMNet model loads successfully')
+    print(f'✅ Model parameters: {model.count_params():,}')
+except Exception as e:
+    print(f'⚠️  Model loading failed: {e}')
+    print('🔄 Model may need retraining with current TensorFlow/Keras version')
+    print('   Run: python3 train_yamnet_model.py --dataset ../')
+    raise
+" || warning "❌ Model loading failed - may need retraining"
     else
         warning "⚠️  Model file not found, skipping model test"
     fi

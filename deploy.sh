@@ -190,9 +190,9 @@ install_dependencies() {
     cd "$INSTALL_DIR/yamnet_implementation"
     source yamnet_env/bin/activate
     
-    # Install NumPy first to ensure compatibility
+    # Install NumPy first to ensure compatibility (≥1.25.2 for SciPy, <2.0 for TensorFlow)
     info "Installing compatible NumPy version..."
-    pip install "numpy<2.0,>=1.24.0" --no-cache-dir || error "Failed to install NumPy"
+    pip install "numpy>=1.25.2,<2.0" --no-cache-dir || error "Failed to install NumPy"
 
     # Install TensorFlow (this takes the longest)
     info "Installing TensorFlow (this may take 10-15 minutes)..."
