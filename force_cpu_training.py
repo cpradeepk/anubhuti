@@ -18,8 +18,10 @@ def configure_cpu_only():
     os.environ['TF_CPP_MIN_LOG_LEVEL'] = '1'
     
     # Configure TensorFlow for optimal CPU performance
-    tf.config.threading.set_intra_op_parallelism_threads(0)  # Use all CPU cores
-    tf.config.threading.set_inter_op_parallelism_threads(0)  # Use all CPU cores
+    import multiprocessing
+    num_cores = multiprocessing.cpu_count()
+    tf.config.threading.set_intra_op_parallelism_threads(num_cores)  # Use all CPU cores
+    tf.config.threading.set_inter_op_parallelism_threads(num_cores)  # Use all CPU cores
     
     print("✅ Configured TensorFlow for CPU-only training")
     print("✅ CPU optimizations enabled")
@@ -39,7 +41,8 @@ def configure_cpu_only():
     cpu_time = time.time() - start_time
     
     print(f"✅ CPU computation test passed ({cpu_time*1000:.1f}ms)")
-    print(f"✅ Using {tf.config.threading.get_intra_op_parallelism_threads()} CPU threads")
+    actual_threads = tf.config.threading.get_intra_op_parallelism_threads()
+    print(f"✅ Using {actual_threads if actual_threads > 0 else num_cores} CPU threads")
     
     return True
 
@@ -60,11 +63,12 @@ def test_yamnet_cpu():
         dummy_audio = np.random.randn(16000 * 2)  # 2 seconds
         
         start_time = time.time()
-        embeddings = yamnet_model(dummy_audio)
+        embeddings, _, _ = yamnet_model(dummy_audio)  # YAMNet returns (embeddings, spectrogram, log_mel_spectrogram)
         inference_time = (time.time() - start_time) * 1000
-        
+
         print(f"✅ YAMNet CPU inference: {inference_time:.1f}ms")
         print(f"✅ Embeddings shape: {embeddings.shape}")
+        print(f"✅ Embeddings type: {type(embeddings)}")
         
         return True
         
