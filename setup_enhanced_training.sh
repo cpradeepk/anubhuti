@@ -53,10 +53,16 @@ pip install --upgrade pip
 
 # Check Python version
 PYTHON_VERSION=$(python3 -c "import sys; print(f'{sys.version_info.major}.{sys.version_info.minor}')")
+PYTHON_MAJOR=$(python3 -c "import sys; print(sys.version_info.major)")
+PYTHON_MINOR=$(python3 -c "import sys; print(sys.version_info.minor)")
+
 log "🐍 Python version: $PYTHON_VERSION"
 
-if [[ $(echo "$PYTHON_VERSION >= 3.8" | bc -l) -eq 0 ]]; then
+# Check if Python version is 3.8 or higher
+if [[ $PYTHON_MAJOR -lt 3 ]] || [[ $PYTHON_MAJOR -eq 3 && $PYTHON_MINOR -lt 8 ]]; then
     error "Python 3.8+ required. Current version: $PYTHON_VERSION"
+else
+    log "✅ Python version check passed"
 fi
 
 # Install TensorFlow with GPU support
