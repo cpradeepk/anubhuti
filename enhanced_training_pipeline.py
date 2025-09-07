@@ -23,6 +23,16 @@ from tqdm import tqdm
 import warnings
 warnings.filterwarnings('ignore')
 
+# Configure TensorFlow for optimal performance
+tf.config.optimizer.set_jit(True)  # Enable XLA JIT compilation
+gpus = tf.config.experimental.list_physical_devices('GPU')
+if gpus:
+    try:
+        for gpu in gpus:
+            tf.config.experimental.set_memory_growth(gpu, True)
+    except RuntimeError as e:
+        print(f"GPU configuration error: {e}")
+
 class EnhancedYAMNetTrainer:
     def __init__(self, dataset_dir, real_world_audio=None, output_dir="yamnet_models"):
         self.dataset_dir = Path(dataset_dir)
@@ -355,10 +365,12 @@ if __name__ == "__main__":
             tf.keras.layers.Dense(len(self.class_mapping), activation='softmax')
         ])
         
+        # Use latest TensorFlow optimizer syntax
         model.compile(
             optimizer=tf.keras.optimizers.Adam(learning_rate=0.001),
             loss='sparse_categorical_crossentropy',
-            metrics=['accuracy']
+            metrics=['accuracy'],
+            jit_compile=True  # Enable XLA compilation for faster training
         )
         
         return model

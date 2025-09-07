@@ -35,11 +35,12 @@ echo "║          Enhanced YAMNet Training with GPU Optimization     ║"
 echo "╚══════════════════════════════════════════════════════════════╝"
 echo -e "${NC}"
 
-# Set optimal environment variables
+# Set optimal environment variables for latest TensorFlow
 export TF_ENABLE_ONEDNN_OPTS=1
 export TF_CPP_MIN_LOG_LEVEL=1
 export CUDA_CACHE_PATH=/tmp/cuda_cache
 export TF_FORCE_GPU_ALLOW_GROWTH=true
+export XLA_FLAGS=--xla_gpu_cuda_data_dir=/usr/local/cuda
 
 # Create CUDA cache directory
 mkdir -p /tmp/cuda_cache
